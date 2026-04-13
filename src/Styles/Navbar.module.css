@@ -1,0 +1,15 @@
+.navbar{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #333;
+    padding: 0.5em;
+}
+.left {
+    display : flex;
+    gap:1em;
+}
+.left a{
+    text-decoration: none;
+    color:white;
+}
