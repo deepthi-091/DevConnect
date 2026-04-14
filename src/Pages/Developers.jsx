@@ -1,10 +1,14 @@
 import { useEffect, useState } from "react"
-import { getUsers } from "../api/Userapi";
+import { addUser, getUsers } from "../api/Userapi";
 import Loader from "../components/Loader";
 import Style from "../Styles/Developers.module.css";
 import UserList from "../components/UserList";
 import Searchbar from "../components/Searchbar";
+import { getLocalUsers } from "../utils/localStorageUsers";
+import { useLocation, useNavigate } from "react-router-dom";
 export default function Developers(){
+    const navigate = useNavigate();
+   // const location= useLocation();
     const[users,setUsers] = useState([]);
     const[loading,setLoading] = useState(false);
     const [filterusers,setfilterusers] = useState(users);
@@ -19,7 +23,8 @@ export default function Developers(){
         setLoading(true);
         try{
             const response = await getUsers();
-            setUsers(response.data);
+            const localusers = getLocalUsers();
+            setUsers([...response.data,...localusers]);
             
         }
         catch(error){
@@ -34,11 +39,17 @@ export default function Developers(){
             user.name.toLowerCase().includes(query.toLowerCase())
         ));
     }
+    const handleAdd = ()=>{
+       navigate("/register")
+    }
     return(
         <>
             {loading ? <Loader /> :
                <div>
-                <Searchbar onSearch={handleSearch} />
+                <div>
+                    <Searchbar onSearch={handleSearch} />
+                    <button onClick={handleAdd}>AddUser</button>
+                </div>
                 <UserList users={filterusers} />
                </div>
             }

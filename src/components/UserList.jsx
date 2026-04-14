@@ -5,8 +5,8 @@ export default function UserList({users}){
         <>
             <div className={Style.container}>
                 {users.map((user)=>(
-                    <div className={Style.card}>
-                        <Link to={`/users/${user.id}`} key={user.id}>
+                    <div className={Style.card}  key={user.id}>
+                        <Link  to={`/users/${user.id}`}>   
                         <li>{user.name}</li>
                         <li>{user.username}</li>
                         <li>{user.email}</li>

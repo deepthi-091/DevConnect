@@ -1,6 +1,13 @@
 import { NavLink } from "react-router-dom";
 import Style from "../Styles/Navbar.module.css";
 export default function Navbar(){
+  const theme = () =>{
+    const currenttheme=localStorage.getItem("theme") || "light";
+    const newtheme = currenttheme === "light" ? "dark" : "light";
+
+    localStorage.setItem("theme",newtheme);
+    document.body.className = newtheme;
+  }
     return(
       <>
       <h3>Developers</h3>
@@ -10,7 +17,7 @@ export default function Navbar(){
             <NavLink to="/users">Developers</NavLink>
         </div>
         <div className={Style.right}>
-            <button >Toggle</button>
+            <button onClick={theme}>Toggle</button>
         </div>
       </div>
       </>
